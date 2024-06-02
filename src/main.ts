@@ -15,8 +15,8 @@ async function bootstrap() {
   app.use(urlencoded({ extended: true, limit: LIMIT_PAYLOAD }));
 
   const config = new DocumentBuilder()
-    .setTitle('NestJs Platform')
-    .setDescription('NestJs Platform API description')
+    .setTitle('NestJs Movies')
+    .setDescription('NestJs Movies API description')
     .setVersion('1.0')
     .build();
 

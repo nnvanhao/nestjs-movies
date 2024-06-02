@@ -24,12 +24,13 @@ model User {
   password  String
   firstName String?
   lastName  String?
-  active    UserStatus @default(ACTIVE)
+  active    UserStatus @default(INACTIVE)
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 
   // Relation
   userRoleAssignment UserRoleAssignment[]
+  token              Token[]
 }
 
 model UserRole {
@@ -53,4 +54,16 @@ model UserRoleAssignment {
   role UserRole @relation(fields: [roleId], references: [id])
 
   @@id([userId, roleId])
+}
+
+model Token {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  isExpired Boolean? @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relation
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

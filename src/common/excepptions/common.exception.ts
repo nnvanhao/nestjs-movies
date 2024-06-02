@@ -28,3 +28,15 @@ export class InvalidRefreshTokenException extends HttpException {
     super('Invalid refresh token', HttpStatus.UNAUTHORIZED);
   }
 }
+
+export class UserAlreadyExistsException extends HttpException {
+  constructor() {
+    super('User already exists', HttpStatus.CONFLICT);
+  }
+}
+
+export class CommonException extends HttpException {
+  constructor(message: string, code: number) {
+    super(message, code);
+  }
+}
