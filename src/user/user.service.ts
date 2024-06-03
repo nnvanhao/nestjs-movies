@@ -83,14 +83,12 @@ export class UserService {
     try {
       const userId = decrypt(token, process.env.SECRET_KEY);
 
-      const userResult = await this.prisma.user.update({
+      await this.prisma.user.update({
         where: { id: userId },
         data: {
           active: 'ACTIVE',
         },
       });
-
-      return userResult;
     } catch (error) {
       throw new CommonException('Active user failed', HttpStatus.BAD_REQUEST);
     }
