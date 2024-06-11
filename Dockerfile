@@ -1,5 +1,5 @@
 # Use the official Node.js image as a base image
-FROM node:18-alpine AS build
+FROM node:18-bullseye-slim AS build
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -15,6 +15,8 @@ USER node
 
 # Install dependencies
 RUN npm install
+
+RUN npm i @css-inline/css-inline-linux-arm64-gnu
 
 # Copy the rest of the application code to the working directory
 COPY --chown=node:node . .
