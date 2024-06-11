@@ -1,6 +1,6 @@
 // src/auth/auth.controller.ts
 
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
@@ -9,9 +9,9 @@ import { SignInDto } from './dto/sign-in.dto';
 import { SignInEntity } from './entities/sign-in.entity';
 import { SignUpEntity } from './entities/sign-up.entity';
 import { SignUpDto } from './dto/sign-up.dto';
-import { SignOutDto } from './dto/sign-out.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
+import * as jwt from 'jsonwebtoken';
 
 @Controller('auth')
 @ApiTags('Auth')
@@ -39,9 +39,13 @@ export class AuthController {
   }
 
   @Post('sign-out')
-  @ApiBody({ type: SignOutDto })
-  async signOut(@Body() user: SignOutDto) {
-    return this.authService.signOut(user.userId);
+  async signOut(@Request() req: Request) {
+    const token = req.headers['authorization'].split(' ')[1];
+    const decodedToken = jwt.decode(token);
+    const userId = (decodedToken as { userId: string }).userId;
+
+    // const userId = decodedToken.userId;
+    return this.authService.signOut(userId);
   }
 
   @Post('forgot-password')

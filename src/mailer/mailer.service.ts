@@ -1,7 +1,6 @@
 // src/mailer/mailer.service.ts
 import { Injectable } from '@nestjs/common';
 import { MailerService as Mailer } from '@nestjs-modules/mailer';
-import { UserProfileEntity } from 'src/user/entities/user-profile.entity';
 import { encrypt } from 'src/utils/securities';
 
 @Injectable()

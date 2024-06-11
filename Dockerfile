@@ -1,5 +1,5 @@
 # Use the official Node.js image as a base image
-FROM node:18
+FROM node:18-alpine AS build
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -23,10 +23,10 @@ COPY --chown=node:node . .
 RUN npx prisma generate
 
 # # Deploy Prisma client
-# RUN npx prisma migrate deploy
+RUN npx prisma migrate deploy
 
 # # Seed Prisma client
-# RUN npx prisma db seed
+RUN npx prisma db seed
 
 # Build the NestJS application
 RUN npm run build

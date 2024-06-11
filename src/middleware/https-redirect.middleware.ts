@@ -17,11 +17,7 @@ export class HttpsAndCorsMiddleware implements NestMiddleware {
       return next();
     }
 
-    if (
-      !origin ||
-      !this.isAllowedDomain(origin) ||
-      !this.isSwaggerRequest(req)
-    ) {
+    if (!origin || !this.isAllowedDomain(origin)) {
       throw new HttpException(
         'Access to this service is not allowed from this domain.',
         HttpStatus.FORBIDDEN,

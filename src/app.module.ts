@@ -9,15 +9,15 @@ import { MovieModule } from './movie/movie.module';
 import { TokenModule } from './token/token.module';
 import { MailerModule } from './mailer/mailer.module';
 import { ConfigModule } from '@nestjs/config';
+import { FileManagementService } from './file-management/file-management.service';
+import { FileManagementController } from './file-management/file-management.controller';
+import { FileManagementModule } from './file-management/file-management.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true, // no need to import into other modules
     }),
-    AuthModule,
-    MovieModule,
-    MailerModule,
     CacheModule.register(),
     ThrottlerModule.forRoot([
       {
@@ -27,6 +27,10 @@ import { ConfigModule } from '@nestjs/config';
     ]),
     TokenModule,
     MailerModule,
+    AuthModule,
+    MovieModule,
+    MailerModule,
+    FileManagementModule,
   ],
   controllers: [AppController],
   providers: [AppService],
