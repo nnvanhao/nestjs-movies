@@ -9,9 +9,8 @@ import { MovieModule } from './movie/movie.module';
 import { TokenModule } from './token/token.module';
 import { MailerModule } from './mailer/mailer.module';
 import { ConfigModule } from '@nestjs/config';
-import { FileManagementService } from './file-management/file-management.service';
-import { FileManagementController } from './file-management/file-management.controller';
-import { FileManagementModule } from './file-management/file-management.module';
+import { FileModule } from './file/file.module';
+import { RequestLoggingMiddleware } from './middleware/logging.middleware';
 
 @Module({
   imports: [
@@ -30,13 +29,15 @@ import { FileManagementModule } from './file-management/file-management.module';
     AuthModule,
     MovieModule,
     MailerModule,
-    FileManagementModule,
+    FileModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(HttpsAndCorsMiddleware).forRoutes('*'); // Apply to all routes
+    consumer
+      .apply(HttpsAndCorsMiddleware, RequestLoggingMiddleware)
+      .forRoutes('*'); // Apply to all routes
   }
 }

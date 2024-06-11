@@ -16,30 +16,6 @@ import { join } from 'path';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
-        // Log environment variables
-        console.log(
-          'BREVO_SMTP_HOST:',
-          configService.get<string>('BREVO_SMTP_HOST'),
-        );
-        console.log(
-          'BREVO_SMTP_PORT:',
-          configService.get<number>('BREVO_SMTP_PORT'),
-        );
-        console.log(
-          'BREVO_SMTP_USER:',
-          configService.get<string>('BREVO_SMTP_USER'),
-        );
-        console.log(
-          'BREVO_SMTP_PASS:',
-          configService.get<string>('BREVO_SMTP_PASS'),
-        );
-        console.log(
-          'BREVO_FROM_EMAIL:',
-          configService.get<string>('BREVO_FROM_EMAIL'),
-        );
-
-        console.log(join(process.cwd(), 'templates'));
-
         return {
           transport: {
             host: configService.get<string>('BREVO_SMTP_HOST'),

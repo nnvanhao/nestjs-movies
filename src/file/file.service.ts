@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import * as path from 'path';
 
 @Injectable()
-export class FileManagementService {
+export class FileService {
   private readonly s3: AWS.S3;
   AWS_S3_BUCKET = process.env.AWS_S3_BUCKET;
 
@@ -35,9 +35,8 @@ export class FileManagementService {
     if (result) {
       return {
         id: result.ETag.replace(/"/g, ''),
-        key: result?.Key,
         url: result?.Location,
-        fileName: file.originalname,
+        originFileName: file.originalname,
       };
     }
   }
@@ -58,7 +57,6 @@ export class FileManagementService {
         .promise();
       return s3Response;
     } catch (e) {
-      console.log(e);
       throw new Error('Error uploading file to S3');
     }
   }

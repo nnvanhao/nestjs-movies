@@ -9,14 +9,14 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { FileManagementService } from './file-management.service';
+import { FileService } from './file.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RoleGuard } from 'src/user/role.guard';
 import { Roles } from 'src/user/role.decorator';
 
 @Controller('file')
-export class FileManagementController {
-  constructor(private readonly fileManagementService: FileManagementService) {}
+export class FileController {
+  constructor(private readonly fileService: FileService) {}
 
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Roles('Admin')
@@ -29,7 +29,7 @@ export class FileManagementController {
     }
 
     // If file exists, proceed with your logic
-    return this.fileManagementService.uploadFile(file);
+    return this.fileService.uploadFile(file);
   }
 
   @UseGuards(JwtAuthGuard, RoleGuard)
@@ -39,6 +39,6 @@ export class FileManagementController {
     if (!id) {
       throw new BadRequestException('Please provide a key file');
     }
-    return this.fileManagementService.deleteFile(id);
+    return this.fileService.deleteFile(id);
   }
 }
