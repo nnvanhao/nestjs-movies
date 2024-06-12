@@ -11,6 +11,9 @@ import { MailerModule } from './mailer/mailer.module';
 import { ConfigModule } from '@nestjs/config';
 import { FileModule } from './file/file.module';
 import { RequestLoggingMiddleware } from './middleware/logging.middleware';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TaskSchedulingModule } from './task-scheduling/task-scheduling.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -30,6 +33,9 @@ import { RequestLoggingMiddleware } from './middleware/logging.middleware';
     MovieModule,
     MailerModule,
     FileModule,
+    ScheduleModule.forRoot(),
+    TaskSchedulingModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

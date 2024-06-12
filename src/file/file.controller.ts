@@ -13,7 +13,9 @@ import { FileService } from './file.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RoleGuard } from 'src/user/role.guard';
 import { Roles } from 'src/user/role.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('File')
 @Controller('file')
 export class FileController {
   constructor(private readonly fileService: FileService) {}

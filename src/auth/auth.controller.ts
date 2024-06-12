@@ -1,6 +1,6 @@
 // src/auth/auth.controller.ts
 
-import { Controller, Post, Body, Request } from '@nestjs/common';
+import { Controller, Post, Body, Request, Version } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
@@ -18,7 +18,7 @@ import * as jwt from 'jsonwebtoken';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Post('refresh')
+  @Post('token/refresh')
   @ApiOkResponse({ type: RefreshEntity })
   async refresh(@Body() refreshToken: RefreshTokenDto) {
     return this.authService.refreshToken(refreshToken);
