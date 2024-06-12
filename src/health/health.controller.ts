@@ -28,7 +28,7 @@ export class HealthController {
   async check() {
     const ipAddress = this.getServerIp();
     return this.health.check([
-      () => this.http.pingCheck('nest-app', `http://${ipAddress}:5510/v1/`),
+      () => this.http.pingCheck('nest-app', `http://${ipAddress}/v1/`),
       () => this.db.pingCheck('database', this.prismaService),
       () =>
         this.disk.checkStorage('storage', {
