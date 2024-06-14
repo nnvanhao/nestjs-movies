@@ -15,16 +15,13 @@ export class RequestLoggingMiddleware implements NestMiddleware {
       const statusCode = res.statusCode;
       const responseTime = Date.now() - start;
 
+      const mess = `[${method}] ${originalUrl} - IP: ${ip}, User-Agent: ${userAgent}, Status: ${statusCode}, Response Time: ${responseTime}ms`;
       if (statusCode >= 400) {
         // Log error for non-2xx status codes
-        this.logger.error(
-          `[${method}] ${originalUrl} - IP: ${ip}, User-Agent: ${userAgent}, Status: ${statusCode}, Response Time: ${responseTime}ms`,
-        );
+        this.logger.error(mess);
       } else {
         // Log normal request for 2xx status codes
-        this.logger.log(
-          `[${method}] ${originalUrl} - IP: ${ip}, User-Agent: ${userAgent}, Status: ${statusCode}, Response Time: ${responseTime}ms`,
-        );
+        this.logger.log(mess);
       }
     });
 

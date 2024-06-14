@@ -42,8 +42,6 @@ import { HealthModule } from './health/health.module';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(HttpsAndCorsMiddleware, RequestLoggingMiddleware)
-      .forRoutes('*'); // Apply to all routes
+    consumer.apply(RequestLoggingMiddleware).forRoutes('*'); // Apply to all routes
   }
 }
